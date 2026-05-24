@@ -34,25 +34,6 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 to-blue-50">
-      {/* Header */}
-      <header className="bg-white border-b border-gray-200 shadow-sm sticky top-0 z-10">
-        <div className="max-w-3xl mx-auto px-6 py-4 flex items-center justify-between">
-          <div>
-            <h1 className="text-xl font-bold text-gray-900">🏨 ORM Dashboard</h1>
-            <p className="text-xs text-gray-400 mt-0.5">AI-Powered Review Management</p>
-          </div>
-          {reviews.length > 0 && (
-            <div className="flex gap-2">
-              <span className="px-3 py-1.5 bg-yellow-100 text-yellow-700 rounded-full text-xs font-bold border border-yellow-200">
-                ⏳ {pending} Pending
-              </span>
-              <span className="px-3 py-1.5 bg-green-100 text-green-700 rounded-full text-xs font-bold border border-green-200">
-                ✅ {resolved} Resolved
-              </span>
-            </div>
-          )}
-        </div>
-      </header>
 
       <main className="max-w-3xl mx-auto px-6 py-8 space-y-6">
         {/* Search Box */}
@@ -66,9 +47,6 @@ export default function App() {
               ⚠️ {fetchError}
             </p>
           )}
-          <p className="text-xs text-gray-400 mt-2">
-            💡 MVP: Enter any Place ID to load its reviews.
-          </p>
         </section>
 
         {/* Stats */}
