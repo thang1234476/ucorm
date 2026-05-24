@@ -20,18 +20,31 @@ public class ReviewController {
     private final ReviewService reviewService;
 
     // POST /api/reviews/fetch
+    // Lưu mock reviews → trả về đúng reviews của placeId đó
     @PostMapping("/fetch")
     public ResponseEntity<List<Review>> fetchReviews(
-            @RequestBody FetchReviewRequest request) throws Exception {
-        return ResponseEntity.ok(
-                reviewService.fetchAndSaveReviews(request.getPlaceId()));
+            @RequestBody FetchReviewRequest request)
+            throws ExecutionException, InterruptedException {
+
+        // Lưu mock reviews vào Firestore
+        reviewService.fetchAndSaveReviews(request.getPlaceId());
+
+        // Trả về đúng reviews của placeId này
+        List<Review> reviews = reviewService.getReviewsByPlaceId(request.getPlaceId());
+        return ResponseEntity.ok(reviews);
     }
 
-    // GET /api/reviews
+    // GET /api/reviews?placeId=xxx
     @GetMapping
-    public ResponseEntity<List<Review>> getAllReviews()
+    public ResponseEntity<List<Review>> getReviews(
+            @RequestParam(required = false) String placeId)
             throws ExecutionException, InterruptedException {
-        return ResponseEntity.ok(reviewService.getAllReviews());
+
+        List<Review> reviews = (placeId != null && !placeId.isEmpty())
+                ? reviewService.getReviewsByPlaceId(placeId)
+                : reviewService.getAllReviews();
+
+        return ResponseEntity.ok(reviews);
     }
 
     // POST /api/reviews/{id}/generate-ai
