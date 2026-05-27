@@ -2,7 +2,7 @@ import axios from "axios";
 import type { Review } from "../types";
 
 const api = axios.create({
-  baseURL: "http://localhost:8080",
+  baseURL: "https://ucorm-p4de.onrender.com",
 });
 
 export const fetchReviews = (placeId: string): Promise<Review[]> =>
